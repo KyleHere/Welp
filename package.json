@@ -7,5 +7,20 @@
     "sequelize": "npm run --prefix backend sequelize",
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
     "start": "npm start --prefix backend"
-  }
+  },
+  "name": "soloprojectreact",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleHere/Welp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KyleHere/Welp/issues"
+  },
+  "homepage": "https://github.com/KyleHere/Welp#readme",
+  "description": ""
 }
