@@ -30,6 +30,10 @@ function SignupFormPage() {
   };
 
   return (
+  <div>
+      <ul>
+        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+      </ul>
     <div
       className={styles.pageContainer}
     >
@@ -37,9 +41,7 @@ function SignupFormPage() {
         onSubmit={handleSubmit}
         className={styles.signupContainer}
       >
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+
         <label>
           Email<br />
           <input
@@ -79,6 +81,7 @@ function SignupFormPage() {
         <button type="submit">Sign Up</button>
       </form>
     </div>
+  </div>
   );
 }
 
