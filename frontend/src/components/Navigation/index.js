@@ -30,7 +30,9 @@ function Navigation({ isLoaded }){
         <div className='leftNavbar'>
           <image src='frontend/src/images/logo.png'></image>
           <div className='logo' background>
-            Welp
+            <img className='logoImage' src='https://i.imgur.com/SjdX5ZR.png'></img>
+            <h4 className='logoText'>Welp</h4>
+
           </div>
           <div className='navbarLinks'>
             <NavLink exact to="/" style={{textDecoration: 'none'}}>Home</NavLink>
@@ -38,6 +40,10 @@ function Navigation({ isLoaded }){
           <div className='navbarLinks'>
             <NavLink to="/shops" style={{textDecoration: 'none'}}>Shops</NavLink>
           </div>
+        </div>
+        <div className='tagline'>
+        {/* Will be replaced by search bar later */}
+          Time for a coffee break
         </div>
         <div className='rightNavbar'>
           {isLoaded && sessionLinks}
