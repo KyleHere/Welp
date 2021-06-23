@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 
-import styles from './SignupForm.module.css'
+import './SignupForm.css'
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -35,11 +35,11 @@ function SignupFormPage() {
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
     <div
-      className={styles.pageContainer}
+      className='pageContainer'
     >
       <form
         onSubmit={handleSubmit}
-        className={styles.signupContainer}
+        className='signupContainer'
       >
 
         <label>

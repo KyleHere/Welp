@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
-import styles from './Navigation.module.css';
+import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -15,22 +15,33 @@ function Navigation({ isLoaded }){
     );
   } else {
     sessionLinks = (
-      <>
-        <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
-      </>
+      <div className="sessionButtons">
+          <LoginFormModal />
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+      </div>
     );
   }
 
   return (
-    <div className={styles.navbar}>
-      <ul>
-        <li>
-          <NavLink exact to="/">Home</NavLink>
-        </li>
-      </ul>
-      <div>
-        {isLoaded && sessionLinks}
+    <div className='navbarContainer'>
+      <div className='navbar'>
+        <div className='leftNavbar'>
+          <image src='frontend/src/images/logo.png'></image>
+          <div className='logo' background>
+            Welp
+          </div>
+          <div className='navbarLinks'>
+            <NavLink exact to="/" style={{textDecoration: 'none'}}>Home</NavLink>
+          </div>
+          <div className='navbarLinks'>
+            <NavLink to="/shops" style={{textDecoration: 'none'}}>Shops</NavLink>
+          </div>
+        </div>
+        <div className='rightNavbar'>
+          {isLoaded && sessionLinks}
+        </div>
       </div>
     </div>
   );

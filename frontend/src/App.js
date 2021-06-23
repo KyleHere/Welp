@@ -5,6 +5,8 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
+import ShopList from "./components/ShopList";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -13,16 +15,19 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+      <div className='pageContainer'>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route path="/shops">
+            <ShopList />
+          </Route>
         </Switch>
       )}
-    </>
+      </div>
   );
 }
 

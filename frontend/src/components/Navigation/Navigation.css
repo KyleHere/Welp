@@ -1,0 +1,50 @@
+.navbarContainer{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+}
+
+.navbar{
+  background-color: white;
+  height: 100px;
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-between;
+  /* align-items: flex-end; */
+  /* position: absolute; */
+  top: 0px;
+  width: 100%;
+}
+
+.leftNavbar{
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  margin: 20px;
+  width: 300px
+}
+
+.rightNavbar{
+  display: flex;
+  /* justify-content:space-evenly; */
+  padding: 20px;
+  margin: 20px;
+}
+
+.sessionButtons{
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.logo{
+  font-size: 30px;
+  font-style: italic;
+}
+
+.navbarLinks{
+  padding-top: 40px;
+  padding-left: 20px;
+  text-decoration: none;
+}
