@@ -3,10 +3,11 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
-      return queryInterface.bulkInsert('Businesses', [
-        {id: 1, ownerId: 1, title: '', description: '', lat: 32.86, lng:32.87, address: '', city: '', state: '', zipCode: ''},
-
-      ], {});
+      return queryInterface.bulkInsert('Reviews', [{
+        name: 'John Doe',
+        isBetaMember: false
+        // how to structure a review?
+      }], {});
 
   },
 

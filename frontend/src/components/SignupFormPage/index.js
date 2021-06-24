@@ -13,6 +13,7 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [showErrors, setShowErrors] = useState(false);
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -29,56 +30,54 @@ function SignupFormPage() {
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
+
   return (
-  <div>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-    <div
-      className='pageContainer'
-    >
+  <div className='formContainer'>
+    <div className='signupForm'>
       <form
         onSubmit={handleSubmit}
-        className='signupContainer'
+        className='signupInfo'
       >
-
-        <label>
-          Email<br />
           <input
+            className='signupInput'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+           placeholder='Email'
           />
-        </label>
-        <label>
-          Username<br />
           <input
+            className='signupInput'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-          />
-        </label>
-        <label>
-          Password<br />
+            placeholder='Username'
+            />
           <input
+            className='signupInput'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-          />
-        </label>
-        <label>
-          Confirm Password<br />
+            placeholder='Password'
+            />
           <input
+            className='signupInput'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-          />
-        </label>
-        <button type="submit">Sign Up</button>
+            placeholder='Confirm Password'
+            />
+        <div className='signupSubmitDiv'>
+          <button className='signupSubmit' type="submit" onClick={() => setShowErrors(true)}>Sign Up</button>
+        </div>
+        <div>
+          <ul>
+            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          </ul>
+        </div>
       </form>
     </div>
   </div>
