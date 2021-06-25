@@ -53,6 +53,19 @@ export const signup = (user) => async (dispatch) => {
   return response;
 };
 
+// export const createReview = (review) => async (dispatch) => {
+//   const { reviewText, rating } = review;
+//   const response = await csrfFetch("/api/review", {
+//     method: "POST",
+//     body: JSON.stringify({
+//       reviewText,
+//       rating
+//     }),
+//   })
+//   const data = await response.json();
+//   dispatch()
+// }
+
 export const logout = () => async (dispatch) => {
   const response = await csrfFetch('/api/session', {
     method: 'DELETE',

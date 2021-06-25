@@ -38,7 +38,7 @@ function Navigation({ isLoaded }){
             <NavLink exact to="/" style={{textDecoration: 'none'}}>Home</NavLink>
           </div>
           <div className='navbarLinks'>
-            <NavLink to="/shops" style={{textDecoration: 'none'}}>Shops</NavLink>
+            <NavLink to="/businesses" style={{textDecoration: 'none'}}>Shops</NavLink>
           </div>
         </div>
         <div className='tagline'>

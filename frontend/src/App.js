@@ -5,7 +5,8 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
-import ShopList from "./components/ShopList";
+import BusinessList from "./components/BusinessList";
+import BusinessDetails from "./components/BusinessDetails"
 
 function App() {
   const dispatch = useDispatch();
@@ -22,8 +23,11 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/shops">
-            <ShopList />
+          <Route exact path="/businesses">
+            <BusinessList />
+          </Route>
+          <Route path="/businesses/:businessId">
+            <BusinessDetails />
           </Route>
         </Switch>
       )}

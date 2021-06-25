@@ -13,7 +13,7 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  const [showErrors, setShowErrors] = useState(false);
+  // const [showErrors, setShowErrors] = useState(false);
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -74,7 +74,7 @@ function SignupFormPage() {
             placeholder='Confirm Password'
             />
         <div className='signupSubmitDiv'>
-          <button className='signupSubmit' type="submit" onClick={() => setShowErrors(true)}>Sign Up</button>
+          <button className='signupSubmit' type="submit">Sign Up</button>
         </div>
         <div>
           <ul>
