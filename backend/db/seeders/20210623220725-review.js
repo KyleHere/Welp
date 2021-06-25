@@ -3,21 +3,17 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
-      return queryInterface.bulkInsert('Reviews', [{
-        name: 'John Doe',
-        isBetaMember: false
-        // how to structure a review?
-      }], {});
+      return queryInterface.bulkInsert('Reviews', [
+        {userId: 1, businessId: 1, rating: 4, reviewText: 'Really great coffee!'},
+      ], {});
 
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
+    const Op = Sequelize.Op;
+      return queryInterface.bulkDelete('Reviews', {
+        businessId: {[Op.in]: [1]}
+      }, {});
 
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
   }
 };
