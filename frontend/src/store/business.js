@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf"
 
 const LOAD_BUSINESSES = 'businesses/LOAD_BUSINESSES';
+const GET_ONE = 'businesses/SET_ONE'
 const ADD_ONE = 'businesses/ADD_ONE'
 
 export const load = (businesses) => ({
@@ -8,11 +9,18 @@ export const load = (businesses) => ({
   businesses
 })
 
+export const getOneBusiness = business => ({
+  type: GET_ONE,
+  business
+})
+
 export const addOneBusiness = business => ({
   type: ADD_ONE,
   business
 })
 
+
+//List of all businesses in database
 export const getBusinesses = () => async dispatch => {
   const res = await csrfFetch(`/api/businesses`);
 
@@ -22,12 +30,27 @@ export const getBusinesses = () => async dispatch => {
   }
 }
 
+//Specific business' details
 export const getBusinessDetails = (id) => async dispatch => {
   const res = await csrfFetch(`/api/businesses/${id}`);
 
   if(res.ok){
     const details = await res.json();
-    dispatch(addOneBusiness(details))
+    dispatch(getOneBusiness(details))
+  }
+}
+
+//Creating a new business
+export const createBusiness = (data) => async dispatch => {
+  const res = await csrfFetch('/api/businesses',{
+    method: 'POST',
+    body: JSON.stringify(data)
+  })
+
+  if(res.ok){
+    const newBusinessData = await res.json();
+    dispatch(addOneBusiness(newBusinessData))
+    return newBusinessData
   }
 }
 
@@ -48,11 +71,18 @@ const businessesReducer = (state = startingState, action) => {
       }
     }
 
-    case ADD_ONE: {
+    case GET_ONE: {
       return {
         [action.business.id]: action.business,
         ...state,
       };
+    }
+
+    case ADD_ONE: {
+      return {
+        ...state,
+        [action.business.id]: action.business
+      }
     }
     // if(!state[action.business.id]){
     //   const newState = {

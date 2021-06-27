@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 
 import BusinessList from "./components/BusinessList";
 import BusinessDetails from "./components/BusinessDetails"
+import CreateNewBusiness from "./components/CreateBusinessForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function App() {
           <Route path="/businesses/:businessId">
             <BusinessDetails />
           </Route>
+          {/* <Route path="/businesses/new-business">
+            <CreateNewBusiness/>
+          </Route> */}
         </Switch>
       )}
       </div>

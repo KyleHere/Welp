@@ -8,6 +8,7 @@ import './ReviewForm.css'
 
 function ReviewForm(){
   const dispatch = useDispatch();
+  const history = useHistory()
   const sessionUser = useSelector((state) => state.session.user);
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
@@ -35,7 +36,7 @@ function ReviewForm(){
     return(
       <div>
         <form onSubmit={handleSubmit}>
-        
+
         </form>
       </div>
 

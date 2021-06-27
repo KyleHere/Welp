@@ -17,4 +17,13 @@ router.get('/:id', asyncHandler(async(req,res)=> {
   return res.json(oneBusiness);
 }))
 
+
+// router.post('/', asyncHandler(async function(req,res) {
+//   const data = req.body;
+//   const business = await Business.create(data)
+//   const newBusiness = await(Business.findByPk(business.id))
+
+//   res.json(newBusiness)
+// }))
+
 module.exports = router;

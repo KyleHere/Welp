@@ -7,3 +7,5 @@ const { Review } = require('../../db/models/review');
 // router.get('/:id', asyncHandler(async (req,res) => {
 //   const review = await Review.findAll
 // }))
+
+module.exports = router;
