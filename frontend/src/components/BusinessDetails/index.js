@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
+import { Modal } from '../../context/Modal';
 
 import { getBusinesses, getBusinessDetails } from '../../store/business';
+import EditBusinessForm from '../EditBusiness';
 
 function BusinessDetails(){
   const {businessId} = useParams();
   const [showEditBusiness, setShowEditBusiness] = useState(false);
   const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user?.id);
+  const ownerId = useSelector(state => state.businesses.user?.id);
   const business = useSelector((state) => {
     return state.businesses[businessId]
   })
+  // const [showEditBusiness, setShowBusinessEdit] = useState(false);
 
   useEffect(() => {
-    // setShowEditBusiness
     dispatch(getBusinessDetails(businessId))
   },[businessId])
+
 
   return(
     <div className="business-details">
@@ -26,6 +31,19 @@ function BusinessDetails(){
         <p>{business?.city}</p>
         <p>{business?.state}</p>
         <p>{business?.zipCode}</p>
+      </div>
+      <div>
+        {showEditBusiness && (
+          <Modal className='editModal' onClose={() => setShowEditBusiness(false)}>
+            <EditBusinessForm setShowEditBusiness={setShowEditBusiness} id={business?.id}/>
+          </Modal>
+        )}
+        <button
+          // hidden={sessionUser.id === ownerId ? false : true}
+          onClick={() => setShowEditBusiness(true)}
+        >
+          Edit Business
+        </button>
       </div>
     </div>
   )

@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import { createBusiness } from "../../store/business";
 
+import BusinessDetails from "../BusinessDetails";
+import { editBusiness, deleteBusiness, getBusinessDetails, getOneBusiness } from "../../store/business";
 
-function CreateNewBusiness() {
+function EditBusinessForm({id, setShowEditBusiness}){
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state?.session?.user);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const ownerId = useSelector(state => state?.session?.user?.id);
+  const ownerId = useSelector(state => state?.businesses[id]?.id);
+  const business = useSelector((state) => state?.businesses[id])
+
+  const [title, setTitle] = useState(business?.title);
+  const [description, setDescription] = useState(business?.description);
+  const [lat, setLat] = useState(business?.lat);
+  const [lng, setLng] = useState(business?.lng);
+  const [address, setAddress] = useState(business?.address);
+  const [city, setCity] = useState(business?.city);
+  const [state, setState] = useState(business?.state);
+  const [zipCode, setZipCode] = useState(business?.zipCode);
   const [errors, setErrors] = useState([]);
 
-  if(!sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    // useEffect(() => {
+    //   dispatch(getOneBusiness());
+    // }, [dispatch]);
 
-    // const errors = [];
+  if(sessionUser?.id !== ownerId) return <Redirect to="/" />;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if(!title) errors.push('Please add the title of your shop.')
     if(!description) errors.push('Please add a description of your shop.')
@@ -38,6 +44,7 @@ function CreateNewBusiness() {
 
 
     const payload = {
+      ...business,
       ownerId,
       title,
       description,
@@ -49,10 +56,22 @@ function CreateNewBusiness() {
       zipCode,
     }
 
-    const createdBusiness = await dispatch(createBusiness(payload));
+    // dispatch(getBusinessDetails())
+    let editedBusiness = await dispatch(editBusiness(payload))
 
-    if(createdBusiness){
-      history.push(`/businesses/${createdBusiness?.id}`)
+    if(editedBusiness){
+      setShowEditBusiness(false)
+      history.push(`/businesses/${editedBusiness?.id}`)
+    }
+
+
+  }
+
+  const handleDelete = async(id) => {
+    let deletedBusiness = await dispatch(deleteBusiness(id))
+
+    if(deletedBusiness){
+      history.push('/businesses')
     }
   }
 
@@ -73,10 +92,14 @@ function CreateNewBusiness() {
         <input type='text' className='formInput' value={city} placeholder='City' onChange={(e) => setCity(e.target.value)}/>
         <input type='text' className='formInput' value={state} placeholder='State' onChange={(e) => setState(e.target.value)}/>
         <input type='text' className='formInput' value={zipCode} placeholder='Zip Code' onChange={(e) => setZipCode(e.target.value)}/>
-        <button type='submit' className='newBusinessButton'>Add your new business!</button>
+        <button type='submit' className='newBusinessButton'>Save Changes</button>
       </form>
+      <button className='deleteButton' onClick={() => handleDelete(business.id)} >
+        Remove Business
+      </button>
     </div>
   )
+
 }
 
-export default CreateNewBusiness;
+export default EditBusinessForm;

@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf"
 const LOAD_BUSINESSES = 'businesses/LOAD_BUSINESSES';
 const GET_ONE = 'businesses/SET_ONE'
 const ADD_ONE = 'businesses/ADD_ONE'
+const DELETE_ONE = 'businesses/DELETE_ONE'
+const EDIT_ONE = 'businesses/EDIT_ONE'
 
 export const load = (businesses) => ({
   type: LOAD_BUSINESSES,
@@ -19,6 +21,15 @@ export const addOneBusiness = business => ({
   business
 })
 
+export const deleteOneBusiness = id =>({
+  type: DELETE_ONE,
+  id
+})
+
+export const editOneBusiness = business => ({
+  type: EDIT_ONE,
+  business
+})
 
 //List of all businesses in database
 export const getBusinesses = () => async dispatch => {
@@ -54,11 +65,40 @@ export const createBusiness = (data) => async dispatch => {
   }
 }
 
+//Editing specific business
+export const editBusiness = (business) => async dispatch => {
+  const res = await csrfFetch(`/api/businesses/${business.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(business)
+  })
+
+  if(res.ok){
+    const newData = await res.json();
+    dispatch(editOneBusiness(newData))
+    return newData;
+  }
+}
+
+export const deleteBusiness = (id) => async dispatch  => {
+  const res = await csrfFetch(`/api/businesses/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (res.ok) {
+    const businessDeleted = await res.json();
+    dispatch(deleteOneBusiness(id))
+
+  return businessDeleted
+  }
+  // return null;
+}
+
 const startingState = {
 
 };
 
 const businessesReducer = (state = startingState, action) => {
+
   switch(action.type){
     case LOAD_BUSINESSES:{
       const allBusinesses = {};
@@ -84,14 +124,21 @@ const businessesReducer = (state = startingState, action) => {
         [action.business.id]: action.business
       }
     }
-    // if(!state[action.business.id]){
-    //   const newState = {
-    //     ...state,
-    //     [action.business.id]: action.business
-    //   };
 
-      // const businessList = newState.map(id => newState[id]);
-      // businessList.push(action.business)
+    case DELETE_ONE: {
+      const afterState = Object.assign({}, state);
+      delete afterState.businesses[action.id]
+
+      return{
+        ...afterState
+      }
+    }
+
+    case EDIT_ONE: {
+      const prevState = {...state.allBusinesses}
+      prevState[action.business.id] = action.business
+      return prevState;
+    }
 
     default:
       return state;
