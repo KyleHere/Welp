@@ -86,7 +86,7 @@ export const deleteBusiness = (id) => async dispatch  => {
 
   if (res.ok) {
     const businessDeleted = await res.json();
-    dispatch(deleteOneBusiness(id))
+    dispatch(deleteOneBusiness({id: id}))
 
   return businessDeleted
   }
@@ -126,12 +126,12 @@ const businessesReducer = (state = startingState, action) => {
     }
 
     case DELETE_ONE: {
-      const afterState = Object.assign({}, state);
+      const afterState = {};
+      afterState = {...state};
       delete afterState.businesses[action.id]
 
-      return{
-        ...afterState
-      }
+      return afterState;
+
     }
 
     case EDIT_ONE: {

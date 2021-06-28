@@ -4,7 +4,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 // const BusinessRepository = require('../../db/business-repository');
-const {Business, User} = require('../../db/models')
+const {Business, User, Review} = require('../../db/models')
 
 router.get('/', asyncHandler(async (req,res) => {
   const businesses = await Business.findAll();
@@ -42,5 +42,14 @@ router.put('/:id', asyncHandler(async function(req,res) {
   return res.json(business)
 }))
 
+
+router.delete('/:id', asyncHandler(async function(req,res) {
+  const businessId = req.params.id
+  const business = await Business.findByPk(businessId);
+
+  const deletedBusiness = await Business.destroy({where: {id: businessId}})
+
+  // res.json();
+}))
 
 module.exports = router;

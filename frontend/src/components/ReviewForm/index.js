@@ -17,7 +17,7 @@ function ReviewForm(){
   const updateRating = (e) => setRating(e.target.value);
   const updateReviewText = (e) => setReviewText(e.taraget.value)
 
-  if(sessionUser) return <Redirect to="/"/>;
+  if(!sessionUser) return <Redirect to="/"/>;
 
   const handleSubmit = (e) => {
     e.preventDefault();

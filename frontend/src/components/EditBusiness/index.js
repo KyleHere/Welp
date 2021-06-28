@@ -9,7 +9,7 @@ function EditBusinessForm({id, setShowEditBusiness}){
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state?.session?.user);
-  const ownerId = useSelector(state => state?.businesses[id]?.id);
+  const ownerId = useSelector(state => state?.businesses[id]?.ownerId);
   const business = useSelector((state) => state?.businesses[id])
 
   const [title, setTitle] = useState(business?.title);
@@ -27,7 +27,7 @@ function EditBusinessForm({id, setShowEditBusiness}){
     //   dispatch(getOneBusiness());
     // }, [dispatch]);
 
-  if(sessionUser?.id !== ownerId) return <Redirect to="/" />;
+  if(sessionUser.id !== ownerId) return <Redirect to="/" />;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
